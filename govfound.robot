@@ -46,10 +46,10 @@ Login
   ${number_of_items}=  Get Length  ${items}
   ${tenderAttempts}=   Convert To String   ${tender_data.data.tenderAttempts}
   Switch Browser  ${username}
-  Wait Until Page Contains Element  xpath=//a[@href="http://www.gov.auction/tenders"]  10
-  Click Element  xpath=//a[@href="http://www.gov.auction/tenders"]
-  Click Element  xpath=//a[@href="http://www.gov.auction/tenders/index"]
-  Click Element  xpath=//a[contains(@href,"http://www.gov.auction/buyer/tender/create")]
+  Wait Until Page Contains Element  xpath=//a[@href="https://gov.auction/tenders"]  10
+  Click Element  xpath=//a[@href="https://gov.auction/tenders"]
+  Click Element  xpath=//a[@href="https://gov.auction/tenders/index"]
+  Click Element  xpath=//a[contains(@href,"https://gov.auction/buyer/tender/create")]
   Select From List By Value  name=tender_method  open_${tender_data.data.procurementMethodType}
   Conv And Select From List By Value  name=Tender[value][valueAddedTaxIncluded]  ${tender_data.data.value.valueAddedTaxIncluded}
   ConvToStr And Input Text  name=Tender[value][amount]  ${tender_data.data.value.amount}
@@ -165,9 +165,9 @@ Login
 Пошук тендера по ідентифікатору
   [Arguments]  ${username}  ${tender_uaid}
   Switch browser  ${username}
-  Go To  http://www.gov.auction
-  Click Element  xpath=//a[@href="http://www.gov.auction/tenders"]
-  Click Element  xpath=//a[@href="http://www.gov.auction/tenders/index"]
+  Go To  https://gov.auction
+  Click Element  xpath=//a[@href="https://gov.auction/tenders"]
+  Click Element  xpath=//a[@href="https://gov.auction/tenders/index"]
   Wait Until Element Is Visible  id=more-filter
   Wait Until Keyword Succeeds  10 x  0.4 s  Run Keywords
   ...  Click Element  id=more-filter
@@ -268,7 +268,7 @@ Login
   ${value}=  Run Keyword If  'cancellations' in '${field_name}'
   ...  Get Text  xpath=//div[contains(@class,'alert-danger')]/h3[1]
   ...  ELSE  Get Text  xpath=//h2[@tid="${field_name.split('.')[-1]}"]
-  [return]  ${value}
+  [return]  ${value.lower()}
 
 Отримати інформацію із предмету
   [Arguments]  ${username}  ${tender_uaid}  ${item_id}  ${field_name}
@@ -346,8 +346,8 @@ Login
   Wait Until Element Is Visible  name=delete_bids
   ${url}=  Log Location
   Run Keyword If  ${status}
-  ...  Go To  http://www.gov.auction/bids/send/${url.split('?')[0].split('/')[-1]}
-  ...  ELSE  Go To  http://www.gov.auction/bids/decline/${url.split('?')[0].split('/')[-1]}
+  ...  Go To  https://gov.auction/bids/send/${url.split('?')[0].split('/')[-1]}
+  ...  ELSE  Go To  https://gov.auction/bids/decline/${url.split('?')[0].split('/')[-1]}
   Go To  ${url}
   Wait Until Keyword Succeeds  6 x  30 s  Run Keywords
   ...  Reload Page
@@ -373,7 +373,7 @@ Login
   Click Element  xpath=//button[contains(text(), 'Відправити')]
   Wait Until Element Is Visible  name=delete_bids
   ${url}=  Log Location
-  Go To  http://www.gov.auction/bids/send/${url.split('?')[0].split('/')[-1]}
+  Go To  https://gov.auction/bids/send/${url.split('?')[0].split('/')[-1]}
   Go To  ${url}
 
 Завантажити документ в ставку
@@ -390,7 +390,7 @@ Login
   Click Element  xpath=//button[contains(text(), 'Відправити')]
   Wait Until Element Is Visible  name=delete_bids
   ${url}=  Log Location
-  Go To  http://www.gov.auction/bids/send/${url.split('?')[0].split('/')[-1]}
+  Go To  https://gov.auction/bids/send/${url.split('?')[0].split('/')[-1]}
   Go To  ${url}
 
 Завантажити фінансову ліцензію
