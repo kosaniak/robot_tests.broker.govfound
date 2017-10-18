@@ -33,10 +33,10 @@ Library  govfound_service.py
 Login
   [Arguments]  ${username}
   Click Element  xpath=//a[@href="/login"]
-  Wait Until Page Contains Element  id=loginform-username  10
-  Input text  id=loginform-username  ${USERS.users['${username}'].login}
-  Input text  id=loginform-password  ${USERS.users['${username}'].password}
-  Click Element  name=login-button
+  Wait Until Page Contains Element  id=username  10
+  Input text  id=username  ${USERS.users['${username}'].login}
+  Input text  id=password  ${USERS.users['${username}'].password}
+  Click Element  xpath=//*[contains(@class, "login-btn")]
 
 ###############################################################################################################
 ######################################    СТВОРЕННЯ ТЕНДЕРУ    ################################################
@@ -506,7 +506,7 @@ Login
   [Arguments]  ${username}  ${tender_uaid}  ${award_num}
   Перейти на сторінку кваліфікації учасників  ${username}  ${tender_uaid}
   Wait Until Element Is Enabled  xpath=//button[@name="cancelled"]
-  Click Element  xpath=//button[@name="cancelled"]
+  Scroll And Click  xpath=//button[@name="cancelled"]
   Wait Until Keyword Succeeds  10 x  1 s  Element Should Be Visible  xpath=//button[@data-bb-handler="confirm"]
   Click Element  xpath=//button[@data-bb-handler="confirm"]
 
