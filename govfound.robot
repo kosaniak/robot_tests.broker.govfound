@@ -36,7 +36,7 @@ Login
   Wait Until Page Contains Element  id=username  10
   Input text  id=username  ${USERS.users['${username}'].login}
   Input text  id=password  ${USERS.users['${username}'].password}
-  Click Element  xpath=//*[contains(@class, "login-btn")]
+  Scroll And Click  xpath=//*[contains(@class, "login-btn")]
 
 ###############################################################################################################
 ######################################    СТВОРЕННЯ ТЕНДЕРУ    ################################################
@@ -170,7 +170,7 @@ Login
   Go To  http://test.gov.auction/tenders/index
   ${status}=  Run Keyword And Return Status  Wait Until Element Is Visible  xpath=//button[@data-dismiss="modal"]  5
   Run Keyword If  ${status}  Wait Until Keyword Succeeds  10 x  1 s  Закрити модалку з новинами
-  Click Element  id=more-filter
+  Scroll And Click  id=more-filter
   Дочекатися Анімації  id=tenderssearch-tender_cbd_id
   Wait Until Element Is Visible  id=tenderssearch-tender_cbd_id
   Input text  id=tenderssearch-tender_cbd_id  ${tender_uaid}
@@ -180,7 +180,7 @@ Login
   [Arguments]  ${tender_uaid}
   Click Element  xpath=//button[@data-test-id="search"]
   Wait Until Element Is Visible  xpath=//*[contains(text(),'${tender_uaid}') and contains('${tender_uaid}', normalize-space(text()))]/ancestor::div[@class="search-result"]/descendant::a[contains(@href,"/view/")]  10
-  Wait Until Keyword Succeeds  5 x  1 s  Click Element  xpath=//*[contains(text(),'${tender_uaid}') and contains('${tender_uaid}', normalize-space(text()))]/ancestor::div[@class="search-result"]/descendant::a[contains(@href,"/view/")]
+  Wait Until Keyword Succeeds  5 x  1 s  Scroll And Click  xpath=//*[contains(text(),'${tender_uaid}') and contains('${tender_uaid}', normalize-space(text()))]/ancestor::div[@class="search-result"]/descendant::a[contains(@href,"/view/")]
   Wait Until Keyword Succeeds  10 x  1 s  Element Should Be Visible  xpath=//*[@data-test-id="tenderID"]
 
 Оновити сторінку з тендером
