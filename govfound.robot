@@ -4,7 +4,7 @@ Library  BuiltIn
 Library  Collections
 Library  String
 Library  DateTime
-Library  govauction_service.py
+Library  govfound_service.py
 
 *** Variables ***
 
@@ -59,7 +59,7 @@ Library  govauction_service.py
     Click Element  xpath=//button[@data-target="#toggleRight"]
     Wait Until Element Is Visible  xpath=//nav[@id="toggleRight"]/descendant::a[contains(@href, "/assets/index")]
     Click Element  xpath=//nav[@id="toggleRight"]/descendant::a[contains(@href, "/assets/index")]
-    govauction.Закрити Модалку
+    govfound.Закрити Модалку
     Click Element  xpath=//a[contains(@href, "/buyer/asset/create")]
     Input Text  id=asset-title  ${data.title}
     Input Text  id=asset-description  ${data.description}
@@ -113,12 +113,12 @@ Library  govauction_service.py
 
 Додати актив до об'єкта МП
     [Arguments]  ${username}  ${tender_uaid}  ${item_data}
-    govauction.Пошук об’єкта МП по ідентифікатору  ${username}  ${tender_uaid}
+    govfound.Пошук об’єкта МП по ідентифікатору  ${username}  ${tender_uaid}
     Click Element  xpath=//a[contains(@href, "asset/update")]
     Wait Until Element Is Visible  xpath=//form[@id="asset-form"]
     Scroll To And Click Element  xpath=//button[@id="add-item-to-asset"]
-    Run Keyword And Ignore Error  govauction.Додати предмет МП  ${item_data}
-    Run Keyword And Ignore Error  govauction.Scroll To And Click Element   id=btn-submit-form
+    Run Keyword And Ignore Error  govfound.Додати предмет МП  ${item_data}
+    Run Keyword And Ignore Error  govfound.Scroll To And Click Element   id=btn-submit-form
     Wait Until Element Is Visible  xpath=//div[@data-test-id="tenderID"]
 
 
@@ -142,11 +142,11 @@ Library  govauction_service.py
 
 Оновити сторінку з об'єктом МП
     [Arguments]  ${username}  ${tender_uaid}
-    govauction.Пошук об’єкта МП по ідентифікатору  ${username}  ${tender_uaid}
+    govfound.Пошук об’єкта МП по ідентифікатору  ${username}  ${tender_uaid}
 
 Внести зміни в об'єкт МП
     [Arguments]  ${username}  ${tender_uaid}  ${fieldname}  ${fieldvalue}
-    govauction.Пошук об’єкта МП по ідентифікатору  ${tender_owner}  ${tender_uaid}
+    govfound.Пошук об’єкта МП по ідентифікатору  ${tender_owner}  ${tender_uaid}
     Click Element  xpath=//a[contains(@href, "asset/update")]
     Wait Until Element Is Visible  xpath=//form[@id="asset-form"]
     Run Keyword If  '${fieldname}' == 'title'  Input Text  id=asset-title  ${fieldvalue}
@@ -158,7 +158,7 @@ Library  govauction_service.py
 
 Внести зміни в актив об'єкта МП
     [Arguments]  ${username}  ${item_id}  ${tender_uaid}  ${field_name}  ${field_value}
-    govauction.Пошук об’єкта МП по ідентифікатору  ${tender_owner}  ${tender_uaid}
+    govfound.Пошук об’єкта МП по ідентифікатору  ${tender_owner}  ${tender_uaid}
     Click Element  xpath=//a[contains(@href, "asset/update")]
     Wait Until Element Is Visible  xpath=//form[@id="asset-form"]
     ${quantity}=  Convert To String  ${field_value}
@@ -169,17 +169,17 @@ Library  govauction_service.py
 
 Завантажити документ для видалення об'єкта МП
     [Arguments]  ${username}  ${tender_uaid}  ${file_path}
-    govauction.Завантажити документ в об'єкт МП з типом  ${username}  ${tender_uaid}  ${file_path}  cancellationDetails
+    govfound.Завантажити документ в об'єкт МП з типом  ${username}  ${tender_uaid}  ${file_path}  cancellationDetails
 
 
 Завантажити ілюстрацію в об'єкт МП
   [Arguments]  ${username}  ${tender_uaid}  ${filepath}
-  govauction.Завантажити документ в об'єкт МП з типом  ${username}  ${tender_uaid}  ${filepath}  illustration
+  govfound.Завантажити документ в об'єкт МП з типом  ${username}  ${tender_uaid}  ${filepath}  illustration
 
 
 Завантажити документ в об'єкт МП з типом
     [Arguments]  ${username}  ${tender_uaid}  ${file_path}  ${doc_type}
-    govauction.Пошук об’єкта МП по ідентифікатору  ${username}  ${tender_uaid}
+    govfound.Пошук об’єкта МП по ідентифікатору  ${username}  ${tender_uaid}
     Click Element  xpath=//a[contains(@href, "asset/update")]
     Wait Until Element Is Visible  xpath=//form[@id="asset-form"]
     Choose File  xpath=(//*[@action="/tender/fileupload"]/input)[last()]  ${file_path}
@@ -198,7 +198,7 @@ Library  govauction_service.py
 
 Видалити об'єкт МП
     [Arguments]  ${username}  ${tender_uaid}
-    govauction.Пошук об’єкта МП по ідентифікатору  ${username}  ${tender_uaid}
+    govfound.Пошук об’єкта МП по ідентифікатору  ${username}  ${tender_uaid}
     Click Element  id=delete_btn
     Wait Until Element Is Visible  xpath=//div[@class="modal-footer"]
     Click Element  xpath=//button[@data-bb-handler="confirm"]
@@ -242,7 +242,7 @@ Library  govauction_service.py
 
 Отримати кількість активів в об'єкті МП
   [Arguments]  ${username}  ${tender_uaid}
-  govauction.Пошук об’єкта МП по ідентифікатору  ${username}  ${tender_uaid}
+  govfound.Пошук об’єкта МП по ідентифікатору  ${username}  ${tender_uaid}
   ${number_of_items}=  Get Matching Xpath Count  xpath=//div[@data-test-id="asset.item.description"]
   ${number_of_items}=  Convert To Integer  ${number_of_items}
   [Return]  ${number_of_items}
@@ -262,7 +262,7 @@ Library  govauction_service.py
 
 Створити лот
   [Arguments]  ${username}  ${tender_data}  ${asset_uaid}
-  govauction.Пошук об’єкта МП по ідентифікатору  ${username}  ${asset_uaid}
+  govfound.Пошук об’єкта МП по ідентифікатору  ${username}  ${asset_uaid}
   Click Element  xpath=//a[contains(@href, "lot/create?asset")]
   ${decision_date}=  convert_date_for_decision  ${tender_data.data.decisions[0].decisionDate}
   Input Text   name=Lot[decisions][0][decisionDate]   ${decision_date}
@@ -279,7 +279,7 @@ Library  govauction_service.py
   ${minimalStep}=  Convert To String  ${auction.minimalStep.amount}
   ${guarantee}=  Convert To String  ${auction.guarantee.amount}
   ${registrationFee}=  Convert To String  ${auction.registrationFee.amount}
-  govauction.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
+  govfound.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
   Click Element  xpath=//a[contains(@href, "lot/update")]
   Wait Until Element Is Visible  id=auctions-checkBox
   Click Element  id=auctions-checkBox
@@ -329,7 +329,7 @@ Library  govauction_service.py
 
 Оновити сторінку з лотом
     [Arguments]  ${username}  ${tender_uaid}
-    govauction.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
+    govfound.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
 
 
 Отримати інформацію із лоту
@@ -402,12 +402,12 @@ Library  govauction_service.py
 
 Завантажити ілюстрацію в лот
   [Arguments]  ${username}  ${tender_uaid}  ${filepath}
-  govauction.Завантажити документ в лот з типом  ${username}  ${tender_uaid}  ${filepath}  illustration
+  govfound.Завантажити документ в лот з типом  ${username}  ${tender_uaid}  ${filepath}  illustration
 
 
 Завантажити документ в лот з типом
     [Arguments]  ${username}  ${tender_uaid}  ${file_path}  ${doc_type}
-    govauction.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
+    govfound.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
     Click Element  xpath=//a[contains(@href, "lot/update")]
     Wait Until Element Is Visible  id=decision-title
     Choose File  xpath=(//*[@action="/tender/fileupload"]/input)[last()]  ${file_path}
@@ -426,7 +426,7 @@ Library  govauction_service.py
 
 Завантажити документ в умови проведення аукціону
     [Arguments]  ${username}  ${tender_uaid}  ${file_path}  ${doc_type}  ${index}
-    govauction.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
+    govfound.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
     Click Element  xpath=//a[contains(@href, "lot/update")]
     Wait Until Element Is Visible  id=decision-title
     Choose File  xpath=(//*[@action="/tender/fileupload"]/input)[last()]  ${file_path}
@@ -447,7 +447,7 @@ Library  govauction_service.py
 
 Внести зміни в лот
     [Arguments]  ${username}  ${tender_uaid}  ${fieldname}  ${fieldvalue}
-    govauction.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
+    govfound.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
     Click Element  xpath=//a[contains(@href, "lot/update")]
     Wait Until Element Is Visible  id=decision-title
     Run Keyword If  '${fieldname}' == 'title'  Input Text  id=lot-title  ${fieldvalue}
@@ -459,7 +459,7 @@ Library  govauction_service.py
 
 Внести зміни в актив лоту
   [Arguments]  ${username}  ${item_id}  ${tender_uaid}  ${field_name}  ${field_value}
-  govauction.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
+  govfound.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
   Click Element  xpath=//a[contains(@href, "lot/update")]
   Wait Until Element Is Visible  id=decision-title
   ${quantity}=  Convert To String  ${field_value}
@@ -470,7 +470,7 @@ Library  govauction_service.py
 
 Внести зміни в умови проведення аукціону
     [Arguments]  ${username}  ${tender_uaid}  ${fieldname}  ${fieldvalue}  ${index}
-    govauction.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
+    govfound.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
     Click Element  xpath=//a[contains(@href, "lot/update")]
     Wait Until Element Is Visible  id=decision-title
     Run Keyword If  '${fieldname}' == 'value.amount'  Input Amount  name=Lot[auctions][0][value][amount]  ${fieldvalue}
@@ -484,12 +484,12 @@ Library  govauction_service.py
 
 Завантажити документ для видалення лоту
   [Arguments]  ${username}  ${tender_uaid}  ${file_path}
-  govauction.Завантажити документ в лот з типом  ${username}  ${tender_uaid}  ${filepath}  cancellationDetails
+  govfound.Завантажити документ в лот з типом  ${username}  ${tender_uaid}  ${filepath}  cancellationDetails
 
 
 Видалити лот
     [Arguments]  ${username}  ${tender_uaid}
-    govauction.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
+    govfound.Пошук лоту по ідентифікатору  ${username}  ${tender_uaid}
     Click Element  id=delete_btn
     Wait Until Element Is Visible  //button[@data-bb-handler="confirm"]
     Click Element  //button[@data-bb-handler="confirm"]
