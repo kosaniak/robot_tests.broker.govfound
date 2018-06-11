@@ -41,10 +41,13 @@ Library  govfound_service.py
 Авторизація
     [Arguments]  ${username}
     Click Element  xpath=//*[contains(@href, "/login")]
-    Wait Until Element Is Visible  xpath=//button[@name="login-button"]
-    Input Text  xpath=//input[@id="loginform-username"]  ${USERS.users['${username}'].login}
-    Input Text  xpath=//input[@id="loginform-password"]  ${USERS.users['${username}'].password}
-    Click Element  xpath=//button[@name="login-button"]
+    ${url}=  Get Location
+    ${url}=  Set Variable  ${url.replace('https://stage', 'http://stage')}
+    Go To  ${url}
+    Wait Until Element Is Visible  xpath=//button[contains(@class, "login-btn")]
+    Input Text  xpath=//input[@id="username"]  ${USERS.users['${username}'].login}
+    Input Text  xpath=//input[@id="password"]  ${USERS.users['${username}'].password}
+    Click Element  xpath=//button[contains(@class, "login-btn")]
 
 
 ###############################################################################################################
